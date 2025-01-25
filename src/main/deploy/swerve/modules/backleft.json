@@ -6,7 +6,7 @@
     "absoluteEncoderOffset": 0.644,
     "drive": {
       "type": "talonfx",
-      "id": 21,
+      "id": 22,
       "canbus": null
     },
     "inverted": {
@@ -14,13 +14,13 @@
       "angle": true
     },
     "angle": {
-      "type": "sparkmax",
-      "id": 20,
+      "type": "talonfx",
+      "id": 23,
       "canbus": null
     },
     "encoder": {
-      "type": "attached",
-      "id": 0,
+      "type": "canandmag_can",
+      "id": 12,
       "canbus": null
     },
     "absoluteEncoderInverted": true
