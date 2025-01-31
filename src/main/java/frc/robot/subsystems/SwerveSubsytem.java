@@ -22,6 +22,8 @@ import com.pathplanner.lib.path.PathPlannerPath;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import swervelib.parser.SwerveParser;
+import swervelib.telemetry.SwerveDriveTelemetry;
+import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 import swervelib.SwerveDrive;
 import swervelib.SwerveInputStream;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -39,6 +41,7 @@ public class SwerveSubsytem extends SubsystemBase {
   SwerveDrive  swerveDrive;
  
 public SwerveSubsytem() {
+  SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
   try
     {
       swerveDrive = new SwerveParser(directory).createSwerveDrive(Constants.maxSpeed,
