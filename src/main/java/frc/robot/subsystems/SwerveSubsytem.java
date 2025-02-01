@@ -39,7 +39,7 @@ public class SwerveSubsytem extends SubsystemBase {
 
   File directory = new File(Filesystem.getDeployDirectory(),"swerve");
   SwerveDrive  swerveDrive;
- 
+
 public SwerveSubsytem() {
   SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
   try
@@ -48,6 +48,7 @@ public SwerveSubsytem() {
                                                                   new Pose2d(new Translation2d(Meter.of(1),
                                                                                                Meter.of(4)),
                                                                              Rotation2d.fromDegrees(0)));
+                                                                             swerveDrive.restoreInternalOffset();
       // Alternative method if you don't want to supply the conversion factor via JSON files.
       // swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed, angleConversionFactor, driveConversionFactor);
     } catch (Exception e)
