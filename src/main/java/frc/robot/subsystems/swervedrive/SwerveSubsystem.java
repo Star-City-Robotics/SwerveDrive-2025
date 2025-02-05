@@ -81,16 +81,16 @@ public class SwerveSubsystem extends SubsystemBase
    *
    * @param directory Directory of swerve drive config files.
    */
+  double angleConversionFactor = SwerveMath.calculateDegreesPerSteeringRotation(21.4285714286);
+  double driveConversionFactor = SwerveMath.calculateMetersPerRotation(Units.inchesToMeters(4), 5.35714285715);
+
   public SwerveSubsystem(File directory)
   {
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary objects being created.
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
     try
     {
-      swerveDrive = new SwerveParser(directory).createSwerveDrive(Constants.MAX_SPEED,
-                                                                  new Pose2d(new Translation2d(Meter.of(1),
-                                                                                               Meter.of(4)),
-                                                                             Rotation2d.fromDegrees(0)));
+      swerveDrive = new SwerveParser(directory).createSwerveDrive(Constants.MAX_SPEED,angleConversionFactor,driveConversionFactor);
       // Alternative method if you don't want to supply the conversion factor via JSON files.
       // swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed, angleConversionFactor, driveConversionFactor);
     } catch (Exception e)
@@ -102,7 +102,7 @@ public class SwerveSubsystem extends SubsystemBase
     swerveDrive.setAngularVelocityCompensation(true,
                                                true,
                                                0.1); //Correct for skew that gets worse as angular velocity increases. Start with a coefficient of 0.1.
-    swerveDrive.setModuleEncoderAutoSynchronize(false,
+    swerveDrive.setModuleEncoderAutoSynchronize(true,
                                                 1); // Enable if you want to resynchronize your absolute encoders and motor encoders periodically when they are not moving.
     swerveDrive.pushOffsetsToEncoders(); // Set the absolute encoder to be used over the internal encoder and push the offsets onto it. Throws warning if not possible
     if (visionDriveTest)
@@ -126,7 +126,7 @@ public class SwerveSubsystem extends SubsystemBase
                                   controllerCfg,
                                   Constants.MAX_SPEED,
                                   new Pose2d(new Translation2d(Meter.of(2), Meter.of(0)),
-                                             Rotation2d.fromDegrees(0)));
+                                            Rotation2d.fromDegrees(0)));
   }
 
   /**
